@@ -1,0 +1,7 @@
+Explain briefly what is wrong with the following code with the help of a stack trace.
+
+After researching the error for a bit I came accross a solution. 
+This happens when you try to import a non-existing module, systemJS tries to load it from a URL.
+If there are no related configuration, then it uses <CURRENT-HOST>/<MODULE-NAME>. When you look
+at the network tab the response payload is HTML, but SystemJS tries to look at it as JavaScript 
+and throws the error.

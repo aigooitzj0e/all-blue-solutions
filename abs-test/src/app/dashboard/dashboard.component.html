@@ -1,0 +1,76 @@
+<div class="formContainer">
+  <h1>Add Contact</h1>
+  <form [formGroup]="this.authService.form" (submit)='onCreate()'>
+    <input type="hidden" formControlName="$key">
+    <ul>
+      <li>
+        <mat-form-field>
+          <input matInput type="text" placeholder="Full name" formControlName="fullName" [ngClass]="{'is-invalid': submitted && formControls.fullName.errors}">
+        </mat-form-field>
+      </li>
+
+      <li>
+        <mat-form-field>
+          <input matInput type="email" placeholder="Email Address" formControlName="email" [ngClass]="{'is-invalid': submitted && formControls.email.errors}">
+        </mat-form-field>
+      </li>
+
+      <li>
+        <mat-form-field>
+          <input matInput type="number" placeholder="Phone Number" formControlName="pNumber" [ngClass]="{'is-invalid': submitted && formControls.pNumber.errors}">
+        </mat-form-field>
+      </li>
+    </ul>
+    <button mat-raised-button color="primary">Submit</button>
+  </form>
+
+  <button class="logout-btn" mat-button color="warn" (click)="onLogout()">Log Out</button>
+
+
+  <div class="messageContainer">
+    <div *ngIf='submitted && formControls.fullName.errors'>
+      <p class="text-red">Full Name is required!</p>
+      <label *ngIf='formControls.fullName.errors.minlength'>Minimum length is 5 characters</label>
+    </div>
+
+    <div *ngIf='submitted && formControls.email.errors'>
+        <p class="text-red">Invalid Email!</p>
+    </div>
+
+    <div *ngIf='submitted && formControls.pNumber.errors'>
+        <p class="text-red">Phone Number is required!</p>
+    </div>
+
+    <div *ngIf='showSuccessMessage'>
+      <h3 class="text-green">Success!</h3>
+    </div>
+
+    <div *ngIf='showDeleteMessage'>
+      <h3 class="text-red">Successfully Deleted</h3>
+    </div>
+  </div>
+</div>
+
+  <div class="userList">
+    <h1>User List</h1>
+    <form>
+        <mat-form-field>
+          <input matInput type="text" name="searchInput" placeholder="Search" [(ngModel)]="searchText" style="width: 60%;">
+        </mat-form-field>
+        <button mat-mini-fab color="warn" (click)="searchText=''">X</button>
+    </form>
+
+    <ng-container *ngFor='let user of userArray'>
+      <mat-card *ngIf='filterCondition(user)'>
+          <mat-card-content>
+            <h3>{{user.fullName}}</h3>
+            <p>Email: {{user.email}}</p>
+            <p>Phone: {{user.pNumber}}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button  (click)="authService.populateForm(user)">Edit</button>
+            <button mat-raised-button color="warn" (click)='onDelete(user.$key)'>Delete</button>
+          </mat-card-actions>
+        </mat-card>
+      </ng-container>
+  </div>

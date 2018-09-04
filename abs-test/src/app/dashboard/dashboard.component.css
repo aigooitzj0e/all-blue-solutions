@@ -1,0 +1,41 @@
+.formContainer,
+.userList {
+  width: 50%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+li {
+  list-style: none;
+}
+
+mat-form-field {
+  width: 80%;
+}
+
+.messageContainer {
+  margin-top: 25px;
+}
+
+.text-red {
+  color: red;
+}
+
+.text-green {
+  color: green;
+}
+
+mat-card {
+  width: 75%;
+  background-color: #eee;
+  margin-top: 10px;
+}
+
+.logout-btn {
+  margin-top: 20px;
+}

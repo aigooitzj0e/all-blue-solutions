@@ -1,0 +1,34 @@
+<form [formGroup]="this.authService.form" (submit)='onSubmit()'>
+  <input type="hidden" formControlName="$key">
+  <div>
+    <label>Username</label>
+    <input type="text" formControlName="username" [ngClass]="{'is-invalid': submitted && formControls.username.errors}">
+    <div *ngIf='submitted && formControls.username.errors'>
+      Username is required!
+      <label *ngIf='formControls.username.errors.minlength'>Minimum length is 5 characters</label>
+    </div>
+    <br>
+    <label>Password</label>
+    <input type="password" formControlName="password" [ngClass]="{'is-invalid': submitted && formControls.password.errors}">
+    <div *ngIf='submitted && formControls.password.errors'>
+      <label *ngIf='formControls.password.errors.required'>Password is required</label>
+    </div>
+    <br>
+    <label>Confirm Password</label>
+    <input type="password" formControlName="cpassword" [ngClass]="{'is-invalid': submitted && formControls.cpassword.errors}">
+    <div *ngIf='submitted && formControls.cpassword.errors'>
+      Confirm Password is required!
+    </div>
+    <div *ngIf='this.authService.form.value.password !== this.authService.form.value.cpassword' >
+      Password Mismatch!
+    </div>
+    <br>
+
+    <input type="submit" value="Register">
+    <a routerLink="">Back</a>
+  </div>
+</form>
+
+<div *ngIf='showSuccessMessage'>
+  <h1>Successfully Registered</h1>
+</div>
